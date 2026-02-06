@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title> UrbanNest </title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI', sans-serif;
+    background:#f8fafc;
+    color:#1e293b;
+}
+
+header{
+    background:white;
+    padding:20px 8%;
+    box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
+
+header h2{
+    margin:0;
+    font-weight:600;
+}
+
+.hero{
+    padding:100px 20px;
+    text-align:center;
+    background:linear-gradient(135deg,#0f172a,#1e3a8a);
+    color:white;
+}
+
+.hero h1{
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+.hero p{
+    font-size:18px;
+    opacity:0.9;
+}
+
+.properties{
+    padding:70px 8%;
+    display:flex;
+    flex-wrap:wrap;
+    gap:30px;
+    justify-content:center;
+}
+
+.card{
+    background:white;
+    width:320px;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+    transition:0.3s ease;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 15px 35px rgba(0,0,0,0.12);
+}
+
+.slider{
+    position:relative;
+}
+
+.slider img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.slider button{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:rgba(0,0,0,0.5);
+    color:white;
+    border:none;
+    padding:6px 12px;
+    cursor:pointer;
+    border-radius:6px;
+}
+
+.slider button:first-child{ left:10px; }
+.slider button:last-child{ right:10px; }
+
+.card h3{
+    margin:18px 15px 5px;
+}
+
+.card p{
+    margin:6px 15px;
+}
+
+.price{
+    color:#2563eb;
+    font-weight:600;
+}
+
+.whatsapp{
+    display:block;
+    margin:15px;
+    padding:10px;
+    text-align:center;
+    background:#25D366;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+    font-weight:500;
+    transition:0.3s;
+}
+
+.whatsapp:hover{
+    background:#1ebe5d;
+}
+
+footer{
+    text-align:center;
+    padding:25px;
+    background:#0f172a;
+    color:white;
+    margin-top:60px;
+}
+
+@media(max-width:768px){
+    .hero h1{ font-size:30px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>UrbanNest</h2>
+</header>
+
+<section class="hero">
+<h1>Premium Properties</h1>
+<p>Buy • Sell • Rent with Confidence</p>
+</section>
+
+<section class="properties" id="propertyList"></section>
+
+<footer>
+© 2026 UrbanNest | IG:@_jayy._.02_ follo me|
+</footer>
+
+<script>
+
+const ownerWhatsApp = "+91 9177306138";
+
+const properties = [
+{
+title:"Luxury Villa",
+location:"Hyderabad",
+price:"₹1.2 Cr",
+images:[
+"https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+"https://images.unsplash.com/photo-1600607687920-4e2a09cf159d",
+"https://images.unsplash.com/photo-1599423300746-b62533397364"
+]
+},
+{
+title:"Modern Apartment",
+location:"Vijayawada",
+price:"₹75 Lakh",
+images:[
+"https://images.unsplash.com/photo-1570129477492-45c003edd2be",
+"https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
+"https://images.unsplash.com/photo-1493809842364-78817add7ffb"
+]
+},
+{
+title:"Beach House",
+location:"Vizag",
+price:"₹2.1 Cr",
+images:[
+"https://images.unsplash.com/photo-1505691723518-36a5ac3be353",
+"https://images.unsplash.com/photo-1564013799919-ab600027ffc6",
+"https://images.unsplash.com/photo-1523217582562-09d0def993a6"
+]
+},
+{
+title:"Penthouse",
+location:"Bangalore",
+price:"₹3.2 Cr",
+images:[
+"https://images.unsplash.com/photo-1523217582562-09d0def993a6",
+"https://images.unsplash.com/photo-1560185127-6ed189bf02f4",
+"https://images.unsplash.com/photo-1502672260266-1c1ef2d93688"
+]
+},
+{
+title:"Luxury Duplex",
+location:"Chennai",
+price:"₹2.4 Cr",
+images:[
+"https://images.unsplash.com/photo-1568605114967-8130f3a36994",
+"https://images.unsplash.com/photo-1600566752355-35792bedcfea",
+"https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83"
+]
+},
+{
+title:"2BHK Flat",
+location:"Guntur",
+price:"₹55 Lakh",
+images:[
+"https://images.unsplash.com/photo-1493809842364-78817add7ffb",
+"https://images.unsplash.com/photo-1507089947368-19c1da9775ae",
+"https://images.unsplash.com/photo-1560448204-e02f11c3d0e2"
+]
+},
+{
+title:"Commercial Space",
+location:"Kakinada",
+price:"₹1.8 Cr",
+images:[
+"https://images.unsplash.com/photo-1497366216548-37526070297c",
+"https://images.unsplash.com/photo-1486406146926-c627a92ad1ab",
+"https://images.unsplash.com/photo-1492724441997-5dc865305da7"
+]
+},
+{
+title:"Farm House",
+location:"Warangal",
+price:"₹95 Lakh",
+images:[
+"https://images.unsplash.com/photo-1564013799919-ab600027ffc6",
+"https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde",
+"https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea"
+]
+},
+{
+title:"Studio Apartment",
+location:"Hyderabad",
+price:"₹40 Lakh",
+images:[
+"https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
+"https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6",
+"https://images.unsplash.com/photo-1493809842364-78817add7ffb"
+]
+},
+{
+title:"Residential Plot",
+location:"Vijayawada",
+price:"₹30 Lakh",
+images:[
+"https://images.unsplash.com/photo-1501183638710-841dd1904471",
+"https://images.unsplash.com/photo-1599423300746-b62533397364",
+"https://images.unsplash.com/photo-1600607687920-4e2a09cf159d"
+]
+},
+{
+title:"Gated Community Villa",
+location:"Tirupati",
+price:"₹1.6 Cr",
+images:[
+"https://images.unsplash.com/photo-1580587771525-78b9dba3b914",
+"https://images.unsplash.com/photo-1597047084897-51e81819a499",
+"https://images.unsplash.com/photo-1600566752355-35792bedcfea"
+]
+}
+];
+
+const propertyList = document.getElementById("propertyList");
+let currentIndexes = properties.map(() => 0);
+
+properties.forEach((property, index) => {
+propertyList.innerHTML += `
+<div class="card">
+<div class="slider">
+<button onclick="prevSlide(${index})">❮</button>
+<img id="image-${index}" src="${property.images[0]}">
+<button onclick="nextSlide(${index})">❯</button>
+</div>
+
+<h3>${property.title}</h3>
+<p>${property.location}</p>
+<p class="price">${property.price}</p>
+
+<a class="whatsapp"
+href="https://wa.me/${ownerWhatsApp}?text=Hi I am interested in ${property.title} in ${property.location}"
+target="_blank">
+<i class="fab fa-whatsapp"></i> Contact on WhatsApp
+</a>
+</div>
+`;
+});
+
+function nextSlide(index){
+currentIndexes[index]++;
+if(currentIndexes[index] >= properties[index].images.length){
+currentIndexes[index] = 0;
+}
+document.getElementById(`image-${index}`).src =
+properties[index].images[currentIndexes[index]];
+}
+
+function prevSlide(index){
+currentIndexes[index]--;
+if(currentIndexes[index] < 0){
+currentIndexes[index] = properties[index].images.length - 1;
+}
+document.getElementById(`image-${index}`).src =
+properties[index].images[currentIndexes[index]];
+}
+
+</script>
+
+</body>
+</html>
